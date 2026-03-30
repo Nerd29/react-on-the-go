@@ -3,6 +3,13 @@ import Country from '../Country/Country';
 import './countries.css'
 
 const Countries = ({fetchCountries}) => {
+    const[visitedCountries,setVisitedCountries]=useState([])
+
+    const handleAddCountries=(country)=>{
+        console.log('Countries added')
+        const newCountry=[...visitedCountries,country]
+        setVisitedCountries(newCountry)
+    }
     const [visitedFlag,setVisitedFlag] = useState([])
 
     const handleAddFlag=(flag)=>{
@@ -17,7 +24,16 @@ const Countries = ({fetchCountries}) => {
     return (
         <div>
             <h1>In the Countries :{countries.length}</h1>
-            <h2>Total Countries Visited : {visitedFlag.length}</h2>
+            <h2>Total Countries Visited : {visitedCountries.length}</h2>
+            
+                <ol>
+                    {
+                        visitedCountries.map(country=> <li>{country.name.common}</li>)
+                    }
+
+                </ol>
+            
+            <h2>Visited Countries Flag : {visitedFlag.length}</h2>
 
             <div className='visitedFlag'>
                 {
@@ -26,7 +42,7 @@ const Countries = ({fetchCountries}) => {
             </div>
             <div className='countries'>
                 {
-                countries.map(country=> <Country country={country} handleAddFlag={handleAddFlag} ></Country>)
+                countries.map(country=> <Country country={country} handleAddCountries={handleAddCountries} handleAddFlag={handleAddFlag} ></Country>)
             }
             </div>
             
